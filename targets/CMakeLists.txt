@@ -1,0 +1,10 @@
+
+if(DEFINED CONNECTED_LAUNCHPAD)
+message("Configuring for launchpad")
+elseif(DEFINED STM32)
+message("Configuring for STM32")
+include(stm32/target.cmake)
+else()
+message("Configuring for host")
+include(host-opts.cmake)
+endif()

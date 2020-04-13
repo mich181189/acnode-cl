@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.1)
 project (ACNode-CL)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(Git)
 
@@ -14,10 +14,8 @@ execute_process(COMMAND
 
 add_definitions(-DGIT_REVISION=${GIT_SHA1})
 
-include(cmake/AddVendorLibrary.cmake)
+include_directories(include)
 
-add_subdirectory(targets/tivac-launchpad/)
-
-add_subdirectory(lib)
-
+add_subdirectory(targets)
+add_subdirectory(external)
 add_subdirectory(src)
