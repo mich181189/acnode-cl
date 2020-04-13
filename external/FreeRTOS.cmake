@@ -6,14 +6,14 @@ set(FreeRTOS_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/tasks.c
 	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/timers.c
 	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/stream_buffer.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/MemMang/heap_4.c
 )
 
 if(DEFINED STM32)
 list(APPEND FreeRTOS_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c
-	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/MemMang/heap_4.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c
 )
-set(PORT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/GCC/ARM_CM3)
+set(PORT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/GCC/ARM_CM4F)
 else()
 
 # linux
