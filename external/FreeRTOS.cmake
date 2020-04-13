@@ -1,0 +1,34 @@
+
+set(FreeRTOS_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/event_groups.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/list.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/queue.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/tasks.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/timers.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/stream_buffer.c
+)
+
+if(DEFINED STM32)
+list(APPEND FreeRTOS_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/MemMang/heap_4.c
+)
+set(PORT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/GCC/ARM_CM3)
+else()
+
+# linux
+list(APPEND FreeRTOS_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS_Posix/FreeRTOS_Kernel/portable/GCC/Posix/port.c)
+set(PORT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS_Posix/FreeRTOS_Kernel/portable/GCC/Posix/)
+
+endif()
+
+add_library(FreeRTOS ${FreeRTOS_SRCS})
+
+if(DEFINED STM32)
+target_link_libraries(FreeRTOS hal)
+endif()
+
+target_include_directories(FreeRTOS 
+	PUBLIC ${PORT_HEADERS}
+			${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/include)

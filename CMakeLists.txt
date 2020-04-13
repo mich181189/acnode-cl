@@ -17,5 +17,11 @@ add_definitions(-DGIT_REVISION=${GIT_SHA1})
 include_directories(include)
 
 add_subdirectory(targets)
+
+if(DEFINED STM32)
+include_directories(src/targets/stm32/include)
+add_subdirectory(src/targets/stm32)
+endif()
+
 add_subdirectory(external)
 add_subdirectory(src)

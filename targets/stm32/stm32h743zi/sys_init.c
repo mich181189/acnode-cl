@@ -2,11 +2,6 @@
 
 #include "stm32h7xx_hal.h"
 
-// this might seem a little weird, but if we include this file in the .a
-//     library, it discards it because nothing is called from it. This way,
-//     the symbols are pulled in from it
-#include "stm32h7xx_it.c"
-
 static void SystemClock_Config(void)
 {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;

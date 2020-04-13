@@ -15,7 +15,8 @@ else()
 message(FATAL_ERROR "Unknown STM32 target ${TARGET_NAME}")
 endif()
 
+set(FREERTOS_EXTRA_BITS )
+
 add_library(stm32_core  ${TARGET_SYS_FILES} ${STARTUP_FILE})
 target_link_libraries(stm32_core hal bsp)
-
 add_library(stm32::core ALIAS stm32_core)
