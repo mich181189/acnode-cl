@@ -16,12 +16,20 @@ add_definitions(-DGIT_REVISION=${GIT_SHA1})
 
 include_directories(include)
 
+# Bring in the low level target support
 add_subdirectory(targets)
 
 if(DEFINED STM32)
-include_directories(src/targets/stm32/include)
-add_subdirectory(src/targets/stm32)
+	set(TARGET_PATH stm32)
+elseif(NOT CMAKE_CROSSCOMPILING)
+	enable_testing()
+	set(TARGET_PATH host)
+else()
+	message(FATAL "Unknown target")
 endif()
+
+include_directories(src/targets/${TARGET_PATH}/include)
+add_subdirectory(src/targets/${TARGET_PATH})
 
 add_subdirectory(external)
 add_subdirectory(src)

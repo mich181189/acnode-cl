@@ -1,0 +1,1 @@
+add_library(target init.cpp)

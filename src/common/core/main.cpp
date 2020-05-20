@@ -1,42 +1,31 @@
 #include "target.h"
 
-#include "stm32h7xx_nucleo.h"
-
 #include "FreeRTOS.h"
 #include "task.h"
 
-static void blinker( void *pvParameters )
+#include "../../targets/stm32/uart/STM32Uart.h"
+
+#include "stm32h7xx_hal.h"
+
+void tempTask(void* nothing)
 {
-	while(1)
+	STM32Uart uart(0);
+	uart.open(115200);
+	for(;;)
 	{
-		BSP_LED_On(LED1);
-		vTaskDelay(100);
-		BSP_LED_Off(LED1);
-		BSP_LED_On(LED2);
-		vTaskDelay(100);
-		BSP_LED_Off(LED2);
-		BSP_LED_On(LED3);
-		vTaskDelay(100);
-		BSP_LED_Off(LED3);
+		vTaskDelay(1000);
+		uart.send("Hey!\n", 5);
 	}
 }
 
-
 int main(int argc, char** argv)
 {
-	sys_init();
-	register_interrupt_handlers();
+    sys_init();
+    register_interrupt_handlers();
 
-	BSP_LED_Init(LED1);
-	BSP_LED_Init(LED2);
-	BSP_LED_Init(LED3);
-	BSP_LED_On(LED1);
-	BSP_LED_On(LED2);
-	BSP_LED_On(LED3);
+    xTaskCreate(tempTask, "Test Task", configMINIMAL_STACK_SIZE, nullptr, tskIDLE_PRIORITY + 3, nullptr);
 
-	xTaskCreate( blinker, "blinker", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL );
-
-	vTaskStartScheduler();
-
-	return 0;
+    vTaskStartScheduler();
+    while(1);
+    return 0;
 }

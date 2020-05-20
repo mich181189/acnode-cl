@@ -8,4 +8,5 @@ Source Tree Layout
   * common - general logic and reusable code
   * targets - target-specific application code
     * stm32 - stm32-specific stuff
+  * tests - unit tests for components
 * targets - toolchain files and board support for targets
