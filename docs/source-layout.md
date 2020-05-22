@@ -10,3 +10,5 @@ Source Tree Layout
     * stm32 - stm32-specific stuff
   * tests - unit tests for components
 * targets - toolchain files and board support for targets
+
+Headers used only by implementation details should be placed next to the code they reference.

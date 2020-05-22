@@ -1,5 +1,6 @@
 #include "target.h"
 #include "cmsis_os.h"
+#include "stm32h7xx_hal.h"
 
 void register_interrupt_handlers()
 {
@@ -58,4 +59,12 @@ void SysTick_Handler(void)
 {
   osSystickHandler();
   HAL_IncTick();
+}
+
+
+extern ETH_HandleTypeDef EthHandle;
+
+void ETH_IRQHandler(void)
+{
+  HAL_ETH_IRQHandler(&EthHandle);
 }

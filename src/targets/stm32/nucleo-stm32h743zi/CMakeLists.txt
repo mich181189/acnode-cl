@@ -7,6 +7,7 @@ target_include_directories(freertos_extra PUBLIC ${CMAKE_SOURCE_DIR}/targets/stm
 set(TARGET_SRCS 
 	interrupt_handlers.c
 	../uart/STM32Uart.cpp
+	../target.cpp
 	)
 
 add_library(target ${TARGET_SRCS})

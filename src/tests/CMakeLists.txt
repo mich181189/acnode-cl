@@ -11,3 +11,4 @@ function(AddACNodeTest)
 endfunction()
 
 add_subdirectory(utilities)
+add_subdirectory(core)

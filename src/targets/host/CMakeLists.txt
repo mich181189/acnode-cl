@@ -1,1 +1,3 @@
-add_library(target init.cpp)
+add_library(target init.cpp
+					IOStreamConsole.cpp
+					target.cpp)

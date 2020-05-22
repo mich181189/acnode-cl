@@ -84,8 +84,13 @@ target_include_directories(hal
 			${CMAKE_CURRENT_LIST_DIR}/stm32h743zi/include)
 
 if("${TARGET_NAME}" STREQUAL "STM32H743ZI")
-	add_library(bsp ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/BSP/STM32H7xx_Nucleo/stm32h7xx_nucleo.c)
+	add_library(bsp ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/BSP/STM32H7xx_Nucleo/stm32h7xx_nucleo.c
+					${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/BSP/Components/lan8742/lan8742.c)
 	target_link_libraries(bsp hal)
 	target_include_directories(bsp
 		PUBLIC ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/BSP/STM32H7xx_Nucleo)
 endif()
+
+add_library(cmsisos ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c)
+target_include_directories(cmsisos PUBLIC ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/)
+target_link_libraries(cmsisos FreeRTOS)

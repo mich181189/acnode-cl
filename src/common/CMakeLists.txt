@@ -1,2 +1,3 @@
 add_subdirectory(utilities)
+add_subdirectory(networking)
 add_subdirectory(core)

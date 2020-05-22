@@ -7,3 +7,9 @@
 [submodule "external/googletest"]
 	path = external/googletest
 	url = https://github.com/google/googletest.git
+[submodule "external/lwip"]
+	path = external/lwip
+	url = https://git.savannah.nongnu.org/git/lwip.git
+[submodule "external/lwip-contrib"]
+	path = external/lwip-contrib
+	url = https://git.savannah.nongnu.org/git/lwip/lwip-contrib.git

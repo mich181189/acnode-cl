@@ -1,4 +1,5 @@
 #include "core/Console.h"
+#include "core/Logger.h"
 
- Console::~Console() {}
- 
+Console::~Console() {}
+Logger::~Logger() {}

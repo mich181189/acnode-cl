@@ -33,6 +33,6 @@ add_definitions(
                     -DUSE_STM32H7XX_NUCLEO_144_MB1364
                 )
 
-set(CMAKE_EXE_LINKER_FLAGS "-mthumb -mcpu=cortex-m7 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -fsingle-precision-constant -ffreestanding -flto -T ${LINKER_SCRIPT}   -Xlinker -Map=output.map  -Wl,--entry=Reset_Handler " CACHE STRING "")
+set(CMAKE_EXE_LINKER_FLAGS "-mthumb -mcpu=cortex-m7 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -fsingle-precision-constant -ffreestanding -flto -T ${LINKER_SCRIPT}   -Xlinker -Map=output.map  -Wl,--entry=Reset_Handler -Wl,--gc-sections" CACHE STRING "")
 
 set(STLINK_CONFIG board/st_nucleo_h743zi.cfg)
