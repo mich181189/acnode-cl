@@ -1,7 +1,7 @@
 language: cpp
 
 env:
-  - RUN_TESTS=false OPTIONS=-DCMAKE_TOOLCHAIN_FILE=../targets/tivac-launchpad/EK-TM4C1294XL.cmake
+  - RUN_TESTS=true OPTIONS=
 
 cache:
   directories:
