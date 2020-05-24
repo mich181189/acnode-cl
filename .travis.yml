@@ -1,4 +1,9 @@
 language: cpp
+dist: bionic
+
+addons:
+  apt:
+    packages: libgtest-dev binutils-arm-none-eabi gcc-arm-none-eabi libstdc++-arm-none-eabi-newlib libnewlib-arm-none-eabi
 
 env:
   - RUN_TESTS=true OPTIONS=
