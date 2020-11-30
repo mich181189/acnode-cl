@@ -1,0 +1,1 @@
+Copied from STM32CubeH7, modified to support newer FreeRTOS version

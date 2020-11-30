@@ -92,6 +92,6 @@ if("${TARGET_NAME}" STREQUAL "STM32H743ZI")
 		PUBLIC ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/BSP/STM32H7xx_Nucleo)
 endif()
 
-add_library(cmsisos ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c)
-target_include_directories(cmsisos PUBLIC ${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/)
+add_library(cmsisos ${CMAKE_CURRENT_LIST_DIR}/stm32h743zi/cmsisos/cmsis_os.c)
+target_include_directories(cmsisos PUBLIC  ${CMAKE_CURRENT_LIST_DIR}/stm32h743zi/cmsisos)
 target_link_libraries(cmsisos FreeRTOS)
