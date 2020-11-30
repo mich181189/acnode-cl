@@ -6,7 +6,7 @@ set(FreeRTOS_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/tasks.c
 	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/timers.c
 	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/stream_buffer.c
-	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/MemMang/heap_4.c
+	${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/portable/MemMang/heap_3.c
 )
 
 if(DEFINED STM32)
