@@ -13,3 +13,6 @@
 [submodule "external/lwip-contrib"]
 	path = external/lwip-contrib
 	url = https://git.savannah.nongnu.org/git/lwip/lwip-contrib.git
+[submodule "external/littlefs"]
+	path = external/littlefs
+	url = https://github.com/littlefs-project/littlefs.git

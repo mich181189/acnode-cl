@@ -24,6 +24,9 @@ void acnodeStatupTask(void*)
     initLWIP(&core);
     #endif
 
+    beginStorageInit();
+
     // Startup complete - exit.
+    LOG_INFO(core.logger, "Startup Complete");
     vTaskDelete(nullptr);
 }

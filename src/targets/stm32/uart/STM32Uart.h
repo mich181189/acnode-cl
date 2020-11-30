@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/Uart.h>
+#include <hardware/Uart.h>
 #include <utilities/CircularBuffer.h>
 
 #include "FreeRTOS.h"
@@ -30,4 +30,5 @@ private:
     SemaphoreHandle_t writeBufferMutex;
     CircularBuffer readBuffer;
     CircularBuffer writeBuffer;
+    SemaphoreHandle_t writeSync;
 };

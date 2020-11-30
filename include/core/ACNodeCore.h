@@ -7,3 +7,6 @@ class ACNodeCore
 public:
 	Logger* logger;	
 };
+
+// defined in Startup.cpp
+extern ACNodeCore core;

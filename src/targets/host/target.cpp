@@ -13,3 +13,15 @@ Console* getConsole()
 
     return debugConsole;
 }
+
+Pin* getSPIFlashCSPin()
+{
+	// what SPI flash CS pin?!
+	return nullptr;
+}
+
+SPI* getSPIPeripheral()
+{
+	// not supported
+	return nullptr;
+}

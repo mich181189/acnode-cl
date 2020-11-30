@@ -34,6 +34,7 @@ set(HAL_FILES
 	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
 	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
 	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c
+	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c
 	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
 	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
 	${CMAKE_CURRENT_LIST_DIR}/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c

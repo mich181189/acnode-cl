@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Console.h"
+#include <core/Console.h>
 
 class Uart : public Console
 {

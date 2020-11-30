@@ -37,10 +37,11 @@ void STM32Uart::uart_task(void* uart_in)
     unsigned char temp[256];
     for(;;)
     {
+        xSemaphoreTake(uart->writeSync, portMAX_DELAY);
         { // lock scope
             SemaphoreHolder lock(uart->writeBufferMutex);
             taskENTER_CRITICAL();
-            if(uart->writeBuffer.getFillLevel() > 0)
+            while(uart->writeBuffer.getFillLevel() > 0)
             {
                 size_t num = uart->writeBuffer.read(temp, 256);
                 HAL_UART_Transmit(&uart_handles[uart->uart], temp, num, 0xffffffff);
@@ -48,7 +49,6 @@ void STM32Uart::uart_task(void* uart_in)
 
             taskEXIT_CRITICAL();
         }
-        taskYIELD();
     }
 }
 
@@ -58,7 +58,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
     if(huart->Instance == USART3)
     {
         __HAL_RCC_USART3_CLK_ENABLE();
-        __HAL_RCC_GPIOD_CLK_ENABLE();
         __HAL_RCC_GPIOD_CLK_ENABLE();
         GPIO_InitTypeDef  GPIO_InitStruct;
 
@@ -94,6 +93,7 @@ STM32Uart::STM32Uart(int uart) :
     tskHandle(nullptr),
     readBufferMutex(xSemaphoreCreateMutex()),
     writeBufferMutex(xSemaphoreCreateMutex()),
+    writeSync(xSemaphoreCreateBinary()),
     readBuffer(1024),
     writeBuffer(1024)
 {
@@ -116,12 +116,14 @@ STM32Uart::~STM32Uart()
     vTaskDelete(tskHandle);
     vSemaphoreDelete(readBufferMutex);
     vSemaphoreDelete(writeBufferMutex);
+    vSemaphoreDelete(writeSync);
 }
 
 void STM32Uart::send(const char* data, size_t length)
 {
     SemaphoreHolder lock(writeBufferMutex);
     writeBuffer.write(reinterpret_cast<const uint8_t*>(data), length);
+    xSemaphoreGive(writeSync);
 }
 
 size_t STM32Uart::receive(char* data, size_t max_length)

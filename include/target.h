@@ -20,4 +20,14 @@ void register_interrupt_handlers();
 class Console;
 Console* getConsole();
 
+//For targets that support SPI flash, get the CS pin
+class Pin;
+Pin* getSPIFlashCSPin();
+
+class SPI;
+SPI* getSPIPeripheral();
+
+// Start whatever storage is available
+void beginStorageInit();
+
 #endif
