@@ -35,6 +35,6 @@ target_link_libraries(FreeRTOS Threads::Threads)
 
 endif()
 
-target_include_directories(FreeRTOS 
+target_include_directories(FreeRTOS SYSTEM
 	PUBLIC ${PORT_HEADERS}
 			${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS-Kernel/include)

@@ -42,7 +42,6 @@ void SPIFlash::readSFDP(uint32_t address, uint8_t* buffer, size_t length)
 	spi->sendThenReceive(txscratch, 5, buffer, length, select);
 }
 
-static char buffer[63];
 void SPIFlash::FlashInterrogationTask(void* instance)
 {
 	LOG_INFO(core.logger, "Beginning SPI Flash Discovery");
@@ -63,9 +62,6 @@ void SPIFlash::FlashInterrogationTask(void* instance)
 	{
 		// ok, now get the rest of the header
 		sf->readSFDP(0x04, reinterpret_cast<uint8_t*>(data+1), 4);
-
-		// This is a weird zero index, so 0 actually means there's 1 table!
-		uint8_t tableCount = (data[1] >> 16 & 0xff) + 1;
 
 		uint8_t majorVersion = (data[1] >> 8 & 0xff);
 		uint8_t minorVersion = (data[1] & 0xff);
@@ -97,14 +93,14 @@ void SPIFlash::FlashInterrogationTask(void* instance)
 		}
 		else
 		{
-			LOG_ERROR(core.logger,"JEDEC table not found at first position - please implement a fallback! Got type %x", data[2] & 0xff);
+			LOG_ERROR(core.logger,"JEDEC table not found at first position - please implement a fallback! Got type %lx", data[2] & 0xff);
 			sf->params = nullptr;
 		}
 
 	}
 	else
 	{
-		LOG_ERROR(core.logger, "Flash does not support SFDP - please implement a lookup table! data is 0x%hhx 0x%hhx 0x%hhx 0x%hhx", (data[0] >> 24) & 0xff, (data[0] >> 16) & 0xff, (data[0] >> 8) & 0xff, data[0] & 0xff);
+		LOG_ERROR(core.logger, "Flash does not support SFDP - please implement a lookup table! data is 0x%lx 0x%lx 0x%lx 0x%lx", (data[0] >> 24) & 0xff, (data[0] >> 16) & 0xff, (data[0] >> 8) & 0xff, data[0] & 0xff);
 		sf->params = nullptr;
 	}
 
@@ -176,7 +172,7 @@ void SPIFlash::buildDescriptorsFromSFDP(uint32_t* data, size_t dwordCount)
 			if(size != 0)
 			{
 				size = 1 << size;
-				LOG_INFO(core.logger, "0x%hhx can erase %lu bytes (raw 0x%hhu)", (data[i] >> 24) & 0xff, size, ((data[i] >> 16) & 0xff));
+				LOG_INFO(core.logger, "0x%lx can erase %lu bytes (raw 0x%lu)", (data[i] >> 24) & 0xff, size, ((data[i] >> 16) & 0xff));
 				if(size < minSize)
 				{
 					minSize = size;
@@ -189,7 +185,7 @@ void SPIFlash::buildDescriptorsFromSFDP(uint32_t* data, size_t dwordCount)
 			if(size != 0)
 			{
 				size = 1 << size;
-				LOG_INFO(core.logger, "0x%hhx can erase %lu bytes (raw 0x%hhu)", (data[i] >> 8) & 0xff, size, (data[i]  & 0xff));
+				LOG_INFO(core.logger, "0x%lx can erase %lu bytes (raw 0x%lu)", (data[i] >> 8) & 0xff, size, (data[i]  & 0xff));
 				if(size < minSize)
 				{
 					minSize = size;

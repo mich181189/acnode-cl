@@ -11,7 +11,7 @@ set(LITTLEFSBD_SRCS	${LITTLEFS_DIR}/bd/lfs_filebd.c
 
 add_library(littlefs ${LITTLEFS_SRCS})
 
-target_include_directories(littlefs PUBLIC ${LITTLEFS_DIR})
+target_include_directories(littlefs SYSTEM PUBLIC ${LITTLEFS_DIR})
 
 add_library(littlefs_bd ${LITTLEFSBD_SRCS})
 target_link_libraries(littlefs_bd littlefs)

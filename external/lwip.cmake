@@ -20,7 +20,7 @@ add_library(lwip
     ${CMAKE_CURRENT_SOURCE_DIR}/lwip-contrib/ports/freertos/sys_arch.c)
 
 
-target_include_directories(lwip PUBLIC ${LWIP_DIR}/src/include
+target_include_directories(lwip SYSTEM PUBLIC ${LWIP_DIR}/src/include
                                         ${CMAKE_CURRENT_SOURCE_DIR}/lwip-port
                                         ${CMAKE_CURRENT_SOURCE_DIR}/lwip-contrib/ports/freertos/include)
 target_link_libraries(lwip hal FreeRTOS)

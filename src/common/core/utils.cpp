@@ -16,7 +16,7 @@ void logTaskStats(Logger* logger)
 
 	taskcount = uxTaskGetSystemState(tasks, taskcount, nullptr);
 
-	for(int i = 0; i < taskcount; ++i)
+	for(unsigned int i = 0; i < taskcount; ++i)
 	{
 		const char* state = "unknown";
 
@@ -36,6 +36,9 @@ void logTaskStats(Logger* logger)
 			break;
 		case eDeleted:
 			state = "Deleted";
+			break;
+		case eInvalid:
+			state = "Invalid";
 			break;
 		}
 
