@@ -45,6 +45,8 @@ void STM32Uart::uart_task(void* uart_in)
             {
                 size_t num = uart->writeBuffer.read(temp, 256);
                 HAL_UART_Transmit(&uart_handles[uart->uart], temp, num, 0xffffffff);
+                // Give other stuff a chance between writes
+                taskYIELD();
             }
 
             taskEXIT_CRITICAL();

@@ -4,6 +4,7 @@
 #include "spi/STM32Spi.h"
 
 #include <storage/SPIFlash.h>
+#include <storage/LittleFS.h>
 
 static STM32Uart* debugUART = nullptr;
 
@@ -46,4 +47,5 @@ SPI* getSPIPeripheral()
 void beginStorageInit()
 {
 	SPIFlash* sf = new SPIFlash(getSPIPeripheral(), getSPIFlashCSPin());
+	LittleFS* lfs = new LittleFS(sf);
 }

@@ -10,4 +10,4 @@ set(TARGET_SRCS
 	)
 
 add_library(target ${TARGET_SRCS})
-target_link_libraries(target freertos_extra)
+target_link_libraries(target freertos_extra storage)
