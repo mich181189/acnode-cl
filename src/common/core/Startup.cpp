@@ -24,7 +24,7 @@ void acnodeStatupTask(void*)
     initLWIP(&core);
     #endif
 
-    beginStorageInit();
+    core.filesystem = getFilesystem();
 
     // Startup complete - exit.
     LOG_INFO(core.logger, "Startup Complete");

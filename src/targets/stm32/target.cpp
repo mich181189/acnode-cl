@@ -44,8 +44,8 @@ SPI* getSPIPeripheral()
 	return spi;
 }
 
-void beginStorageInit()
+Filesystem* getFilesystem()
 {
 	SPIFlash* sf = new SPIFlash(getSPIPeripheral(), getSPIFlashCSPin());
-	LittleFS* lfs = new LittleFS(sf);
+	return new LittleFS(sf);
 }

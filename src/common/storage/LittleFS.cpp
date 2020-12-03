@@ -1,8 +1,10 @@
 #include <core/ACNodeCore.h>
 #include <storage/LittleFS.h>
 #include <storage/SPIFlash.h>
+#include <utilities/SemaphoreHolder.h>
 
-#include "task.h"
+#include <semphr.h>
+#include <task.h>
 #include <cstring>
 
 class LittleFSFile : public File
@@ -58,7 +60,9 @@ uint32_t LittleFSFile::write(const void* buffer, uint32_t size)
 
 LittleFS::LittleFS(SPIFlash* flash) :
 	flash(flash),
-	isready(false)
+	fsmutex(xSemaphoreCreateMutex()),
+	isready(false),
+	hasError(false)
 {
 	memset(&lfs, 0, sizeof(lfs));
 	memset(&cfg, 0, sizeof(cfg));
@@ -68,22 +72,41 @@ LittleFS::LittleFS(SPIFlash* flash) :
 
 LittleFS::~LittleFS()
 {
-
+	lfs_unmount(&lfs);
+	vSemaphoreDelete(fsmutex);
 }
 
 bool LittleFS::ready() const
 {
+	SemaphoreHolder holder(fsmutex);
 	return isready;
+}
+
+bool LittleFS::errored() const
+{
+	SemaphoreHolder holder(fsmutex);
+	return hasError;
 }
 
 File* LittleFS::open(const char* path)
 {
+	SemaphoreHolder holder(fsmutex);
 	return nullptr;
 }
 
 void LittleFS::mkdir(const char* path)
 {
+	SemaphoreHolder holder(fsmutex);
+}
 
+void LittleFS::lock()
+{
+	xSemaphoreTake(fsmutex, portMAX_DELAY);
+}
+
+void LittleFS::unlock()
+{
+	xSemaphoreGive(fsmutex);
 }
 
 void LittleFS::startupTask(void* in)
@@ -100,6 +123,8 @@ void LittleFS::startupTask(void* in)
 	if(fs->flash->errored())
 	{
 		LOG_ERROR(core.logger, "Flash storage error - no point continuing");
+		SemaphoreHolder holder(fs->fsmutex);
+		fs->hasError = true;
 		vTaskDelete(nullptr);
 		return;
 	}
@@ -147,10 +172,14 @@ void LittleFS::startupTask(void* in)
 	if(retval != LFS_ERR_OK)
 	{
 		LOG_ERROR(core.logger, "Error mounting LittleFS filesystem - %d", retval);
+		SemaphoreHolder holder(fs->fsmutex);
+		fs->hasError = true;
 	}
 	else
 	{
 		LOG_INFO(core.logger, "Mounted LittleFS filesystem");
+		SemaphoreHolder holder(fs->fsmutex);
+		fs->isready = true;
 	}
 
 	vTaskDelete(nullptr);

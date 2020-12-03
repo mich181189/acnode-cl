@@ -17,10 +17,15 @@ public:
 	~LittleFS();
 
 	bool ready() const override;
+	bool errored() const override;
 
 	File* open(const char* path) override;
 
 	void mkdir(const char* path) override;
+
+	// used by LittleFSFile implementation detail
+	void lock();
+	void unlock();
 
 private:
 	static void startupTask(void* fs);
@@ -39,6 +44,7 @@ private:
 	SemaphoreHandle_t fsmutex;
 
 	bool isready;
+	bool hasError;
 
 	lfs_t lfs;
 	struct lfs_config cfg;

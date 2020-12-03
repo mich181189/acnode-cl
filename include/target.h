@@ -27,7 +27,8 @@ Pin* getSPIFlashCSPin();
 class SPI;
 SPI* getSPIPeripheral();
 
-// Start whatever storage is available
-void beginStorageInit();
+// Get whatever storage is available
+class Filesystem;
+Filesystem* getFilesystem();
 
 #endif

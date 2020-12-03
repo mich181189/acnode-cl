@@ -24,6 +24,7 @@ public:
 	virtual ~Filesystem();
 
 	virtual bool ready() const = 0;
+	virtual bool errored() const = 0;
 
 	virtual File* open(const char* path)=0;
 
