@@ -164,7 +164,8 @@ SECTIONS
   } >RAM_D1
 
   /* FreeRTOS Heap in DTCM for speed */
-  .freertos_heap : {
+  /* This caused some head scratching until I read https://mcuoneclipse.com/2014/04/19/gnu-linker-can-you-not-initialize-my-variable/ */
+  .freertos_heap (NOLOAD) : {
   
   } >DTCMRAM
 
