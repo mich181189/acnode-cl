@@ -7,6 +7,7 @@ set(TARGET_SRCS
 	../pin/STM32Pin.cpp
 	../spi/STM32Spi.cpp
 	../target.cpp
+	freertos_heap.c
 	)
 
 add_library(target ${TARGET_SRCS})

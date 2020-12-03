@@ -49,7 +49,7 @@ STM32Spi::STM32Spi()
 {
 	memset(&handle, 0, sizeof(handle));
 	handle.Instance = SPI3;
-	handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+	handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
 	handle.Init.Mode = SPI_MODE_MASTER;
 	handle.Init.Direction = SPI_DIRECTION_2LINES;
 	handle.Init.CLKPhase          = SPI_PHASE_1EDGE;

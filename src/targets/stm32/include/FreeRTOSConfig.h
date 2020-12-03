@@ -55,11 +55,6 @@
 #define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES			(  7 )
 #define configMINIMAL_STACK_SIZE		( ( uint16_t ) 128 )
-#if defined(__GNUC__)
- #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 25 * 1024 ) )
-#else
- #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 20 * 1024 ) )
-#endif
 #define configMAX_TASK_NAME_LEN			( 16 )
 #define configUSE_TRACE_FACILITY		1
 #define configUSE_16_BIT_TICKS			0
@@ -73,6 +68,10 @@
 #define configUSE_COUNTING_SEMAPHORES	        1
 #define configGENERATE_RUN_TIME_STATS	        0
 #define configUSE_STATS_FORMATTING_FUNCTIONS    1
+
+// We allocate this so we can choose where it goes
+#define configAPPLICATION_ALLOCATED_HEAP        1
+#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 32 * 1024 ) )
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 		        0
